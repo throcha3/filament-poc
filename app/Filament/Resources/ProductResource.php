@@ -59,7 +59,14 @@ class ProductResource extends Resource
             ])
             ->defaultSort('price', 'desc')
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('status')
+                    ->options([
+                        'in stock' => 'in stock',
+                        'sold out' => 'sold out',
+                        'coming soon' => 'coming soon',
+                    ]),
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('category', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
