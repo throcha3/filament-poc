@@ -43,6 +43,9 @@ class CategoryResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('products_count')
+                    ->label('products with this category')
+                    ->counts('products'),
             ])
             ->filters([
                 //
