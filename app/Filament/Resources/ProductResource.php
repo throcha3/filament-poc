@@ -37,7 +37,11 @@ class ProductResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('price')
-                    ->sortable(),
+                    ->sortable()
+                    ->money('usd')
+                    ->getStateUsing(function (Product $record): float {
+                        return $record->price / 100;
+                    }),
             ])
             ->defaultSort('price', 'desc')
             ->filters([
@@ -65,8 +69,8 @@ class ProductResource extends Resource
     {
         return [
             'index' => Pages\ListProducts::route('/'),
-            //'create' => Pages\CreateProduct::route('/create'),
-            //'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'create' => Pages\CreateProduct::route('/create'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
