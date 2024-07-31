@@ -26,6 +26,14 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true),
                 Forms\Components\TextInput::make('price')->required()->rule('numeric'),
+                Forms\Components\Radio::make('status')
+                    ->options([
+                        'in stock' => 'in stock',
+                        'sold out' => 'sold out',
+                        'coming soon' => 'coming soon',
+                    ]),
+                Forms\Components\Select::make('category_id')
+                    ->relationship('category', 'name'),
             ]);
     }
 
@@ -42,6 +50,8 @@ class ProductResource extends Resource
                     ->getStateUsing(function (Product $record): float {
                         return $record->price / 100;
                     }),
+                Tables\Columns\TextColumn::make('category.name'),
+                Tables\Columns\TextColumn::make('status'),
             ])
             ->defaultSort('price', 'desc')
             ->filters([

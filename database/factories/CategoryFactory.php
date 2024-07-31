@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
  */
-class ProductFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,9 +18,6 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'price' => $this->faker->randomFloat(2),
-            'status' => $this->faker->randomElement(['in stock', 'sold out']),
-            'category_id' => Category::factory()->create(),
         ];
     }
 }
